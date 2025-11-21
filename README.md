@@ -1,6 +1,6 @@
 # Haptic Friends 🤝📳
 
-Send vibrations and emojis to your friends' Apple Watches in real-time! A complete iOS/watchOS application with a robust Node.js backend.
+Send vibrations and emojis to your friends in real-time! A complete cross-platform application with iOS/watchOS apps, a beautiful responsive web app, and a robust Node.js backend.
 
 ## 🌟 Features
 
@@ -20,6 +20,14 @@ Send vibrations and emojis to your friends' Apple Watches in real-time! A comple
 - **Recent History**: View last 10 received vibrations
 - **Watch Complication**: Quick access from watch face
 
+### Web App (NEW! 🎉)
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **Beautiful UI**: Modern design with Tailwind CSS and smooth animations
+- **Real-time Updates**: Instant vibration delivery via WebSocket
+- **Browser Vibration API**: Haptic feedback on supported devices
+- **PWA Support**: Install as an app on mobile devices
+- **Cross-platform**: Access from any modern browser
+
 ### Backend API
 - **RESTful API**: Full-featured API with authentication
 - **WebSocket Server**: Real-time bidirectional communication
@@ -36,17 +44,45 @@ Send vibrations and emojis to your friends' Apple Watches in real-time! A comple
 - Redis 7+
 - Apple Developer Account (for APNS)
 
-### iOS/watchOS
+### iOS/watchOS (Optional)
 - Xcode 14+
 - iOS 15+ / watchOS 8+
 - Swift 5.5+
 - Apple Developer Account
 
+### Web App
+- Node.js 18+ (for development)
+- Modern browser with JavaScript enabled
+- Vibration API support (optional, for haptic feedback)
+
 ## 🚀 Quick Start
 
-### 1. Backend Setup
+### Complete Stack with Docker (Recommended)
 
-#### Using Docker (Recommended)
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/haptic-friends.git
+cd haptic-friends
+
+# Copy environment file
+cp .env.example .env
+# Edit .env with your configurations
+
+# Start all services (Backend API + Database + Redis + Web App)
+docker-compose up -d
+
+# Access the web app
+open http://localhost
+```
+
+The web app will be available at `http://localhost` (port 80)
+The API will be available at `http://localhost:3000`
+
+### Individual Setup
+
+#### 1. Backend Setup
+
+##### Using Docker
 
 ```bash
 cd backend
@@ -115,6 +151,41 @@ open HapticFriends.xcodeproj
 ```bash
 # In Xcode, select the Watch target
 # Build and run on Watch Simulator or paired Apple Watch
+```
+
+### 4. Web App Setup
+
+#### Development Mode
+
+```bash
+cd webapp
+
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env
+
+# Start development server
+npm run dev
+
+# App will be available at http://localhost:3001
+```
+
+#### Production Build
+
+```bash
+cd webapp
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Or use Docker
+docker build -t haptic-friends-webapp .
+docker run -p 8080:8080 haptic-friends-webapp
 ```
 
 ## 🔧 Configuration
@@ -339,6 +410,25 @@ backend/
 ├── Dockerfile
 ├── docker-compose.yml
 └── package.json
+```
+
+### Web App
+```
+webapp/
+├── src/
+│   ├── components/     # Reusable UI components
+│   ├── pages/          # Page components (Login, Friends, Send, History, Settings)
+│   ├── services/       # API and WebSocket services
+│   ├── hooks/          # Custom React hooks
+│   ├── store/          # Zustand state management
+│   ├── types/          # TypeScript types
+│   ├── utils/          # Utility functions
+│   ├── App.tsx         # Main app component
+│   └── main.tsx        # Entry point
+├── public/             # Static assets
+├── Dockerfile          # Docker configuration
+├── nginx.conf          # Nginx configuration
+└── package.json        # Dependencies
 ```
 
 ### iOS App
