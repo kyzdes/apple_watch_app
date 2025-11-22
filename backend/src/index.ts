@@ -14,6 +14,7 @@ import authRoutes from './routes/auth';
 import userRoutes from './routes/user';
 import friendRoutes from './routes/friend';
 import vibrationRoutes from './routes/vibration';
+import v2Routes from './routes/v2';
 
 dotenv.config();
 
@@ -73,6 +74,9 @@ app.use(`/api/${API_VERSION}/auth`, authRoutes);
 app.use(`/api/${API_VERSION}/users`, userRoutes);
 app.use(`/api/${API_VERSION}/friends`, friendRoutes);
 app.use(`/api/${API_VERSION}/vibrations`, vibrationRoutes);
+
+// V2.0 Routes
+app.use(`/api/v2`, v2Routes);
 
 // Root endpoint
 app.get('/', (req: Request, res: Response) => {
