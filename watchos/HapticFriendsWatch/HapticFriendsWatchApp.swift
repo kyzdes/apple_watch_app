@@ -8,7 +8,7 @@ struct HapticFriendsWatchApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WatchContentView()
                 .environmentObject(connectivityManager)
                 .environmentObject(vibrationManager)
                 .onAppear {

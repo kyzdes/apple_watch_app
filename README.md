@@ -130,15 +130,22 @@ The API will be available at `http://localhost:3000`
 
 ### 2. iOS App Setup
 
+**⚠️ Important:** Before opening the Xcode project, please read the [Xcode Setup Guide](XCODE_SETUP.md) to properly configure the project and avoid build errors.
+
 ```bash
 cd ios/HapticFriends
 
 # Open in Xcode
 open HapticFriends.xcodeproj
 
+# IMPORTANT: Follow XCODE_SETUP.md to:
+# 1. Remove backend/webapp files from Xcode target
+# 2. Configure signing & capabilities
+# 3. Update Constants.swift with your backend URL
+
 # Configure Constants.swift with your backend URL
 # File: ios/HapticFriends/Utils/Constants.swift
-# Update baseURL and wsURL
+# Update apiBaseURL and websocketURL
 
 # Add your Apple Developer Team
 # Select project → Signing & Capabilities → Select your team
@@ -151,6 +158,7 @@ open HapticFriends.xcodeproj
 ```bash
 # In Xcode, select the Watch target
 # Build and run on Watch Simulator or paired Apple Watch
+# See XCODE_SETUP.md for detailed instructions
 ```
 
 ### 4. Web App Setup
@@ -563,21 +571,34 @@ redis-server
 - Check APNS_PRODUCTION setting matches environment
 - Ensure device tokens are registered correctly
 
-### iOS Issues
+### iOS/Xcode Issues
+
+**"Multiple commands produce..." Build Error:**
+- This occurs when backend/webapp files are incorrectly added to Xcode target
+- **Solution:** See [XCODE_SETUP.md](XCODE_SETUP.md) Step 1 to remove these files
+- Remove all backend/, webapp/, and root config files from "Copy Bundle Resources"
+- Clean build folder (⇧⌘K) and rebuild
+
+**Duplicate ContentView.swift Error:**
+- The watchOS app uses `WatchContentView.swift`, not `ContentView.swift`
+- **Solution:** This has been fixed - ensure you're using the latest code
+- If still seeing issues, see [XCODE_SETUP.md](XCODE_SETUP.md)
 
 **WebSocket Not Connecting:**
 - Check backend URL in Constants.swift
 - Verify server is running and accessible
 - Check firewall rules
+- For local development, use your Mac's IP (not localhost): `http://192.168.1.X:3000`
 
 **Sign in with Apple Not Working:**
 - Verify bundle identifier matches Apple Developer Portal
-- Check capabilities are enabled
+- Check capabilities are enabled in Xcode (Signing & Capabilities tab)
 - Ensure you're using a real device (not simulator) for final testing
 
 **Haptic Feedback Not Working:**
 - Check device supports haptics (iPhone 7+)
 - Verify haptic settings in iOS Settings
+- Ensure device is not in silent mode (haptics still work, but may be reduced)
 
 ### watchOS Issues
 

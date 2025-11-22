@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ContentView: View {
+struct WatchContentView: View {
     @EnvironmentObject var vibrationManager: WatchVibrationManager
     @State private var selectedTab = 0
 
@@ -227,9 +227,9 @@ struct StatusView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct WatchContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        WatchContentView()
             .environmentObject(WatchVibrationManager())
             .environmentObject(WatchConnectivityManager.shared)
     }
